@@ -1,0 +1,44 @@
+// ci.yml
+
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Get short Git commit SHA
+        id: vars
+        run: echo "::set-output name=commit_sha::$(git rev-parse --short HEAD)"
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/hello-world:${{ steps.vars.outputs.commit_sha }} ./app
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/hello-world:${{ steps.vars.outputs.commit_sha }}
+
+      - name: Update Helm Deployment with new Image Tag
+        run: |
+          sed -i 's/tag:.*/tag: "${{ steps.vars.outputs.commit_sha }}"/' helm/values.yaml
+          git config --global user.name "kkamal123"
+          git config --global user.email "engr.kkamal@gmail.com"
+          git add helm/values.yaml
+          git commit -m "Update image tag to ${{ steps.vars.outputs.commit_sha }}"
+
+      - name: Push updated Helm deployment to GitHub
+        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use GITHUB_TOKEN to authenticate the push
