@@ -1,3 +1,13 @@
 image:
-  repository: kkamal/hello-world
-  tag: "v1.0"
+  repository: "kkamal/hello-world"
+  tag: "v1.0"   # This will be updated in the CI pipeline
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  host: "your-app.example.com"
+
+replicaCount: 2
