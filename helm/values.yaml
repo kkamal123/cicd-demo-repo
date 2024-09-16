@@ -1,5 +1,5 @@
 image:
-  repository: "kkamal/hello-world"
+  repository: "kkamal/CICD-demo"
   tag: "v1.0"   # This will be updated in the CI pipeline
 
 service:
