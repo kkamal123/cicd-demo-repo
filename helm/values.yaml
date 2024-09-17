@@ -1,6 +1,6 @@
 image:
   repository: "kkamal/cicd-demo-repo"
-  tag: "b78b24e"
+  tag: "a345700"
 
 service:
   type: ClusterIP
