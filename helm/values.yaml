@@ -1,5 +1,5 @@
 image:
-  repository: "kkamal/cicd-demo"
+  repository: "kkamal/cicd-demo-repo"
   tag: "b78b24e"
 
 service:
