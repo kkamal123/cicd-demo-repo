@@ -25,8 +25,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/CICD-demo:${{ steps.vars.outputs.commit_sha }} ./app
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/CICD-demo:${{ steps.vars.outputs.commit_sha }}
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/cicd-demo-repo:${{ steps.vars.outputs.commit_sha }} ./app
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/cicd-demo-repo:${{ steps.vars.outputs.commit_sha }}
 
       - name: Update Helm Deployment with new Image Tag
         run: |
