@@ -1,6 +1,6 @@
 image:
   repository: "kkamal/cicd-demo"
-  tag: "v1.0"   # This will be updated in the CI pipeline
+  tag: "b78b24e"
 
 service:
   type: ClusterIP
