@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # By default, the GITHUB_TOKEN only has read permissions. You need to grant it write permissions if your workflow requires pushing code changes
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
